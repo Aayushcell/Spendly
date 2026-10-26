@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Terms and Conditions — Spendly{% endblock %}
+
+{% block content %}
+<div class="terms-container" style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
+    <h1 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--ink); margin-bottom: 10px;">Terms and Conditions</h1>
+    <p style="color: var(--ink-muted); font-size: 0.9rem; margin-bottom: 40px;">Last Updated: October 2026</p>
+
+    <div class="terms-content" style="display: flex; flex-direction: column; gap: 30px;">
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">1. Acceptance of Terms</h2>
+            <p style="color: var(--ink-soft);">By creating an account or using the Spendly service, you agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our service.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">2. Use of Service</h2>
+            <p style="color: var(--ink-soft);">Spendly provides a personal expense tracking tool. You agree to use the service only for lawful purposes and in a manner that does not infringe the rights of others or disrupt the service.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">3. User Data</h2>
+            <p style="color: var(--ink-soft);">Your financial data is personal to you. While we strive to implement robust security measures to protect your information, you acknowledge that no method of electronic storage is 100% secure. You are responsible for maintaining the confidentiality of your account credentials.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">4. Limitations of Liability</h2>
+            <p style="color: var(--ink-soft);">Spendly is provided "as is" without any warranties. We are not responsible for any financial losses, data loss, or errors resulting from the use of this tool. Spendly is a tracking aid and not a professional financial advisory service.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">5. Changes to Terms</h2>
+            <p style="color: var(--ink-soft);">We reserve the right to modify these terms at any time. We will notify users of any significant changes via the application or registered email. Continued use of the service after changes constitute acceptance of the new terms.</p>
+        </section>
+    </div>
+
+    <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border);">
+        <a href="{{ url_for('landing') }}" style="color: var(--accent); font-weight: 500; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">← Back to Home</a>
+    </div>
+</div>
+{% endblock %}

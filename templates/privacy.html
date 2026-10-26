@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy — Spendly{% endblock %}
+
+{% block content %}
+<div class="privacy-container" style="max-width: 800px; margin: 60px auto; padding: 0 20px;">
+    <h1 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--ink); margin-bottom: 10px;">Privacy Policy</h1>
+    <p style="color: var(--ink-muted); font-size: 0.9rem; margin-bottom: 40px;">Last Updated: October 2026</p>
+
+    <div class="privacy-content" style="display: flex; flex-direction: column; gap: 30px;">
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">1. Data We Collect</h2>
+            <p style="color: var(--ink-soft);">We collect information you provide directly to us, including your email address for account creation and the financial transactions you choose to log. We do not collect sensitive banking credentials or credit card numbers.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">2. How We Use Your Data</h2>
+            <p style="color: var(--ink-soft);">Your data is used exclusively to provide the expense tracking service. This includes calculating your spending patterns, generating reports, and managing your account. We do not sell your personal financial data to third parties.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">3. Data Storage</h2>
+            <p style="color: var(--ink-soft);">We use secure databases to store your information. While we implement industry-standard security measures, please be aware that no online storage is completely secure. You can request the deletion of your account and associated data at any time.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">4. Third Party Services</h2>
+            <p style="color: var(--ink-soft);">Spendly does not currently share data with third-party services. If we implement any analytics or cloud hosting services in the future, they will be disclosed in an updated version of this policy.</p>
+        </section>
+
+        <section>
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); margin-bottom: 10px;">5. Contact Us</h2>
+            <p style="color: var(--ink-soft);">If you have any questions about this Privacy Policy or how your data is handled, please contact our support team via the contact details provided in your account settings.</p>
+        </section>
+    </div>
+
+    <div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border);">
+        <a href="{{ url_for('landing') }}" style="color: var(--accent); font-weight: 500; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">← Back to Home</a>
+    </div>
+</div>
+{% endblock %}

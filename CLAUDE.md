@@ -88,7 +88,7 @@ pytest -s
 
 ---
 
-## Implemented vs stub routes
+## Implemented vs stub routes  kind of roadmap to build the project
 
 | Route | Status |
 |---|---|

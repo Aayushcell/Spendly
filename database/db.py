@@ -100,6 +100,14 @@ def seed_db():
 
     print("Database seeded successfully.")
 
+def get_user_by_email(email):
+    """
+    Retrieves a user by their email address.
+    Returns the user row (sqlite3.Row) or None if not found.
+    """
+    db = get_db()
+    return db.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+
 def create_user(name, email, password):
     """
     Creates a new user in the database.

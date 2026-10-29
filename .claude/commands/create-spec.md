@@ -35,7 +35,7 @@ From $ARGUMENTS extract:
 If you cannot infer these from $ARGUMENTS, ask the user
 to clarify before proceeding.
 
-<!-- ## Step 3 — Check branch name is not taken
+## Step 3 — Check branch name is not taken
 Run `git branch` to list existing branches.
 If `branch_name` is already taken, append a number:
 `feature/registration-01`, `feature/registration-02` etc.
@@ -51,7 +51,7 @@ git pull origin main
 Run:
 ```
 git checkout -b <branch_name>
-``` -->
+```
 
 ## Step 6 — Research the codebase
 Read these files before writing the spec:

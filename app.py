@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from database.db import init_db, seed_db, create_user, get_user_by_email
+from database.queries import get_user_profile, get_user_stats, get_recent_transactions, get_category_breakdown
 import sqlite3
 from werkzeug.security import check_password_hash
 
@@ -93,33 +94,14 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    if not session.get("user_id"):
+    user_id = session.get("user_id")
+    if not user_id:
         return redirect(url_for("login"))
 
-    # Hardcoded data for UI validation (Step 4)
-    user = {
-        "name": "Aayush Goel",
-        "email": "aayush@example.com",
-        "member_since": "October 2023",
-        "initials": "AG"
-    }
-    stats = {
-        "total_spent": "₹12,450.00",
-        "transaction_count": 42,
-        "top_category": "Food & Dining"
-    }
-    transactions = [
-        {"date": "2023-10-28", "description": "Starbucks Coffee", "category": "Food & Dining", "amount": "₹350.00"},
-        {"date": "2023-10-27", "description": "Uber Ride", "category": "Transport", "amount": "₹120.00"},
-        {"date": "2023-10-25", "description": "Amazon Electronics", "category": "Shopping", "amount": "₹2,100.00"},
-        {"date": "2023-10-20", "description": "Netflix Subscription", "category": "Entertainment", "amount": "₹499.00"},
-    ]
-    categories = [
-        {"category": "Food & Dining", "amount": "₹4,200.00", "percentage": 34},
-        {"category": "Shopping", "amount": "₹3,100.00", "percentage": 25},
-        {"category": "Transport", "amount": "₹1,500.00", "percentage": 12},
-        {"category": "Entertainment", "amount": "₹800.00", "percentage": 6},
-    ]
+    user = get_user_profile(user_id)
+    stats = get_user_stats(user_id)
+    transactions = get_recent_transactions(user_id)
+    categories = get_category_breakdown(user_id)
 
     return render_template("profile.html", user=user, stats=stats, transactions=transactions, categories=categories)
 

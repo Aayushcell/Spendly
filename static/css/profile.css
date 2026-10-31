@@ -219,6 +219,12 @@
     font-weight: 500;
 }
 
+/* Category Specific Colors for Badges */
+.category-badge.cat-food { background: var(--accent-light); color: var(--accent); }
+.category-badge.cat-shopping { background: var(--accent-2-light); color: var(--accent-2); }
+.category-badge.cat-transport { background: var(--border-soft); color: var(--ink-soft); }
+.category-badge.cat-entertainment { background: var(--danger-light); color: var(--danger); }
+
 /* Breakdown Styles */
 .breakdown-list {
     display: flex;
@@ -262,7 +268,7 @@
 
 .progress-fill.alt-1 { background: var(--accent-2); }
 .progress-fill.alt-2 { background: var(--danger); }
-.progress-fill.alt-3 { background: var(--ink-soft); }
+.progress-fill.alt-3 { background: var(--ink); }
 
 
 @media (max-width: 768px) {

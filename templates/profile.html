@@ -64,7 +64,11 @@
                         <tr>
                             <td>{{ tx.date }}</td>
                             <td class="tx-desc">{{ tx.description }}</td>
-                            <td><span class="category-badge">{{ tx.category }}</span></td>
+                            <td class="text-center">
+                                <span class="category-badge {{ 'cat-food' if tx.category == 'Food & Dining' else 'cat-shopping' if tx.category == 'Shopping' else 'cat-transport' if tx.category == 'Transport' else 'cat-entertainment' if tx.category == 'Entertainment' else '' }}">
+                                    {{ tx.category }}
+                                </span>
+                            </td>
                             <td class="amount text-right">{{ tx.amount }}</td>
                         </tr>
                         {% endfor %}

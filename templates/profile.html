@@ -6,7 +6,12 @@
     <!-- User Info Card -->
     <header class="profile-header">
         <div class="user-card">
-            <div class="avatar">{{ user.initials }}</div>
+            <div class="avatar-wrapper">
+                <div class="avatar" id="profile-avatar">{{ user.initials }}</div>
+                <button class="edit-photo-btn" title="Change Photo" onclick="document.getElementById('photo-upload').click();">
+                    <i data-lucide="pencil"></i>
+                </button>
+            </div>
             <div class="user-details">
                 <h1>{{ user.name }}</h1>
                 <p class="email">{{ user.email }}</p>
@@ -17,6 +22,10 @@
             </div>
         </div>
     </header>
+
+    <!-- Hidden Photo Upload Input -->
+    <input type="file" id="photo-upload" accept=".jpg,.jpeg,.png" style="display: none;" onchange="previewImage(this)">
+
 
     <!-- Summary Stats -->
     <section class="stats-grid">
@@ -93,5 +102,19 @@
             lucide.createIcons();
         }
     });
+
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatar = document.getElementById('profile-avatar');
+                avatar.style.backgroundImage = `url(${e.target.result})`;
+                avatar.style.backgroundSize = 'cover';
+                avatar.style.backgroundPosition = 'center';
+                avatar.textContent = ''; // Remove initials when image is loaded
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 {% endblock %}

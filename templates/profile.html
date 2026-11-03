@@ -26,6 +26,28 @@
     <!-- Hidden Photo Upload Input -->
     <input type="file" id="photo-upload" accept=".jpg,.jpeg,.png" style="display: none;" onchange="previewImage(this)">
 
+    <!-- Date Filter Bar -->
+    <section class="date-filter-bar">
+        <div class="filter-presets">
+            {% for preset in presets %}
+            <a href="{{ url_for('profile', date_from=preset.from, date_to=preset.to) }}"
+               class="preset-btn {{ 'active' if (preset.from == date_from and preset.to == date_to) else '' }}">
+                {{ preset.label }}
+            </a>
+            {% endfor %}
+        </div>
+        <form method="GET" class="custom-filter-form">
+            <div class="input-group">
+                <label for="date_from">From</label>
+                <input type="date" id="date_from" name="date_from" value="{{ date_from or '' }}">
+            </div>
+            <div class="input-group">
+                <label for="date_to">To</label>
+                <input type="date" id="date_to" name="date_to" value="{{ date_to or '' }}">
+            </div>
+            <button type="submit" class="apply-btn">Apply</button>
+        </form>
+    </section>
 
     <!-- Summary Stats -->
     <section class="stats-grid">

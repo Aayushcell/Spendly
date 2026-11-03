@@ -38,16 +38,25 @@ def get_user_profile(user_id):
         "initials": initials
     }
 
-def get_user_stats(user_id):
+def get_user_stats(user_id, date_from=None, date_to=None):
     """
     Calculates total_spent, transaction_count, and top_category for the given user_id.
+    Supports optional date filtering.
     """
     db = get_db()
 
+    # Base filters
+    query_base = "WHERE user_id = ?"
+    params = [user_id]
+
+    if date_from and date_to:
+        query_base += " AND date BETWEEN ? AND ?"
+        params.extend([date_from, date_to])
+
     # Total spent and transaction count
     stats = db.execute(
-        "SELECT SUM(amount) as total, COUNT(id) as count FROM expenses WHERE user_id = ?",
-        (user_id,)
+        "SELECT SUM(amount) as total, COUNT(id) as count FROM expenses " + query_base,
+        params
     ).fetchone()
 
     total_spent_val = stats['total'] if stats['total'] is not None else 0.0
@@ -57,12 +66,12 @@ def get_user_stats(user_id):
     top_cat_row = db.execute(
         """
         SELECT category FROM expenses
-        WHERE user_id = ?
+        """ + query_base + """
         GROUP BY category
         ORDER BY SUM(amount) DESC
         LIMIT 1
         """,
-        (user_id,)
+        params
     ).fetchone()
 
     top_category = top_cat_row['category'] if top_cat_row else "—"
@@ -74,17 +83,25 @@ def get_user_stats(user_id):
     }
 
 
-def get_recent_transactions(user_id, limit=5):
-    """Fetches the most recent transactions."""
+def get_recent_transactions(user_id, limit=5, date_from=None, date_to=None):
+    """Fetches the most recent transactions. Supports optional date filtering."""
     db = get_db()
-    query = """
+
+    where_clause = "WHERE user_id = ?"
+    params = [user_id]
+
+    if date_from and date_to:
+        where_clause += " AND date BETWEEN ? AND ?"
+        params.extend([date_from, date_to])
+
+    query = f"""
         SELECT date, description, category, amount
         FROM expenses
-        WHERE user_id = ?
+        {where_clause}
         ORDER BY date DESC
         LIMIT ?
     """
-    rows = db.execute(query, (user_id, limit)).fetchall()
+    rows = db.execute(query, (*params, limit)).fetchall()
 
     return [
         {
@@ -96,14 +113,21 @@ def get_recent_transactions(user_id, limit=5):
         for row in rows
     ]
 
-def get_category_breakdown(user_id):
-    """Calculates total spent and percentage per category."""
+def get_category_breakdown(user_id, date_from=None, date_to=None):
+    """Calculates total spent and percentage per category. Supports optional date filtering."""
     db = get_db()
 
-    # 1. Calculate total spend for the user
+    where_clause = "WHERE user_id = ?"
+    params = [user_id]
+
+    if date_from and date_to:
+        where_clause += " AND date BETWEEN ? AND ?"
+        params.extend([date_from, date_to])
+
+    # 1. Calculate total spend for the user in range
     total_row = db.execute(
-        "SELECT SUM(amount) as total FROM expenses WHERE user_id = ?",
-        (user_id,)
+        f"SELECT SUM(amount) as total FROM expenses {where_clause}",
+        params
     ).fetchone()
 
     total_spend = total_row['total'] if total_row and total_row['total'] else 0
@@ -113,8 +137,8 @@ def get_category_breakdown(user_id):
 
     # 2. Group expenditures by category and sum the amounts
     rows = db.execute(
-        "SELECT category, SUM(amount) as amount FROM expenses WHERE user_id = ? GROUP BY category ORDER BY amount DESC",
-        (user_id,)
+        f"SELECT category, SUM(amount) as amount FROM expenses {where_clause} GROUP BY category ORDER BY amount DESC",
+        params
     ).fetchall()
 
     breakdown = []
